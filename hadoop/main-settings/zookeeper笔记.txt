@@ -8,22 +8,22 @@
 	mv zoo_sample.cfg zoo.cfg
 	
 	3.2修改配置文件（zoo.cfg）
-		dataDir=/itcast/zookeeper-3.4.5/data
+		dataDir=/home/gaoxiang/app/zookeeper-3.4.5/data
 		
 		server.1=hadoop105:2888:3888
 		server.2=hadoop106:2888:3888
 		server.3=hadoop107:2888:3888
 	
-	3.3在（dataDir=/itcast/zookeeper-3.4.5/data）创建一个myid文件，里面内容是server.N中的N（server.2里面内容为2）
+	3.3在（dataDir=/home/gaoxiang/app/zookeeper-3.4.5/data）创建一个myid文件，里面内容是server.N中的N（server.2里面内容为2）
 		echo "1" > myid
 	
 	3.4将配置好的zk拷贝到其他节点
-		scp -r /itcast/zookeeper-3.4.5/ hadoop106:/itcast/
-		scp -r /itcast/zookeeper-3.4.5/ hadoop107:/itcast/
+		scp -r /home/gaoxiang/app/zookeeper-3.4.5/ hadoop106:/home/gaoxiang/app/
+		scp -r /home/gaoxiang/app/zookeeper-3.4.5/ hadoop107:/home/gaoxiang/app/
 	
 	3.5注意：在其他节点上一定要修改myid的内容
-		在hadoop106应该讲myid的内容改为2 （echo "6" > myid）
-		在hadoop107应该讲myid的内容改为3 （echo "7" > myid）
+		在hadoop106应该讲myid的内容改为2 （echo "2" > myid）
+		在hadoop107应该讲myid的内容改为3 （echo "3" > myid）
 		
 4.启动集群
 	分别启动zk

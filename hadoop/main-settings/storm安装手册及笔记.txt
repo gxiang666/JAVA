@@ -6,12 +6,12 @@
 
 #所使用的zookeeper集群主机
 storm.zookeeper.servers:
-     - "weekend05"
-     - "weekend06"
-     - "weekend07"
+     - "hadoop105"
+     - "hadoop106"
+     - "hadoop107"
 
 #nimbus所在的主机名
-nimbus.host: "weekend05"
+nimbus.host: "hadoop105"
 
 supervisor.slots.ports
 -6701

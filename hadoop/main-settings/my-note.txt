@@ -71,10 +71,12 @@ hadoop102
 
 hadoop103
 	2199 ResourceManager
+	2324 HMaster
 	2280 Jps
-
+	
 hadoop104
 	2196 ResourceManager
+	3231 HMaster
 	2247 Jps
 
 hadoop105
@@ -83,13 +85,15 @@ hadoop105
 	2372 JournalNode
 	2478 NodeManager
 	2607 Jps
-
+	3791 HRegionServer	
+		
 hadoop106
 	2480 NodeManager
 	2274 DataNode
 	2610 Jps
 	2373 JournalNode
 	2063 QuorumPeerMain
+	3781 HRegionServer
 
 hadoop107
 	2481 NodeManager
@@ -97,7 +101,20 @@ hadoop107
 	2278 DataNode
 	2376 JournalNode
 	2063 QuorumPeerMain
-
+	3791 HRegionServer
+	
 hdfs:	NameNode	DataNode		JournalNode(edit-log)
 zookeeper:	QuorumPeerMain	
 yarn:	ResourceManager	NodeManager
+
+
+
+NameNode：管理hdfs名称相关
+DataNode：负责hdfs数据存储
+DFSZKFailoverController(zkfc)：负责管理nameservice(两个namenode),保证一个namenode处于active，一个处于standy
+ResourceManager:
+NodeManager:
+JournalNode：负责管理editlog文件
+QuorumPeerMain：zookeeper
+HMaster：负责管理hbase元数据
+HRegionServer：负责hbase存储数据

@@ -13,6 +13,7 @@ storm.zookeeper.servers:
 #nimbus所在的主机名
 nimbus.host: "hadoop105"
 
+可以不配：默认-6701，-6702，-6703，-6704
 supervisor.slots.ports
 -6701
 -6702
@@ -22,14 +23,17 @@ supervisor.slots.ports
 
 
 启动storm
-在nimbus主机上
+在nimbus主机上：  & 后台
 nohup ./storm nimbus 1>/dev/null 2>&1 &
 nohup ./storm ui 1>/dev/null 2>&1 &
+
+./storm nimbus 
+./storm ui 			//http://hadoop105:8080/index.html图形界面
 
 在supervisor主机上
 nohup ./storm supervisor 1>/dev/null 2>&1 &
 
-
+./storm supervisor
 
 
 storm的深入学习：

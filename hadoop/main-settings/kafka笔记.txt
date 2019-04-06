@@ -19,9 +19,18 @@
 集群安装
 1、解压
 2、修改server.properties
-broker.id=1
-zookeeper.connect=hadoop105:2181,hadoop106:2181,hadoop107:2181
-
+	hadoop105
+		broker.id=0
+		log.dirs=/home/gaoxiang/app/kafka_2.10-0.8.1.1/tmp/kafka-logs		
+		zookeeper.connect=hadoop105:2181,hadoop106:2181,hadoop107:2181
+	hadoop106
+		broker.id=1
+		log.dirs=/home/gaoxiang/app/kafka_2.10-0.8.1.1/tmp/kafka-logs		
+		zookeeper.connect=hadoop105:2181,hadoop106:2181,hadoop107:2181
+	hadoop107	
+		broker.id=2
+		log.dirs=/home/gaoxiang/app/kafka_2.10-0.8.1.1/tmp/kafka-logs		
+		zookeeper.connect=hadoop105:2181,hadoop106:2181,hadoop107:2181
 3、将zookeeper集群启动
 
 4、在每一台节点上启动broker
@@ -31,7 +40,7 @@ bin/kafka-server-start.sh config/server.properties
 bin/kafka-topics.sh --create --zookeeper hadoop105:2181 --replication-factor 3 --partitions 1 --topic order
 
 6、用一个producer向某一个topic中写入消息
-bin/kafka-console-producer.sh --broker-list weekend:9092 --topic order
+bin/kafka-console-producer.sh --broker-list hadoop105:9092 --topic order
 
 7、用一个comsumer从某一个topic中读取信息
 bin/kafka-console-consumer.sh --zookeeper hadoop105:2181 --from-beginning --topic order

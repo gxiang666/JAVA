@@ -1,0 +1,44 @@
+﻿hive的工作机制
+
+1、在hive中建一个库
+    ---在hive的元数据库中记录
+    ---在hdfs的默认路径下/user/hive/warehouse/ 建一个以 "库名.db" 为名字的文件夹
+
+2、在hive的库中建表
+ 		---在hive的元数据库中记录
+ 		---在hdfs的默认路径下  /user/hive/warehouse/库.db/  下建一个 “表名” 为名字的文件夹  
+ 		
+ 		
+ 		
+3、hive中内部表和外部表的区别
+
+	----建表时，内部表不用指定数据存放的路径，默认都放在 		/user/hive/warehouse/
+	----外部表建表时，要指定external关键字，同时要指定数据存放的路径（要分析的数据在哪就指定哪）
+	
+	----内部表删除时，会清掉元数据，同时删掉表文件夹及其中的数据
+	----外部表删除时，只清除元数据
+	
+	
+4、hive表的数据可以存成多种文件格式，最普通的是textfile，但是性能比较好的是 sequenceFile格式
+	----sequencefile 是一种二进制文件
+	----文件内的内容组织形式为key:value
+	----在hadoop有一个优化场景可以使用sequencefile
+	         小文件合并成大文件：  
+	              ---读一个小文件，就把小文件的文件名作为key，内容作为value，追加到一个大sequencefile文件中
+	----sequencefile文件格式支持较好的压缩性能，而且hadoop的mapreduce程序可以直接从sequencefile的压缩文件中直接读取数据
+	         	
+
+5、在linux的shell中直接运行HQL语句的方法
+//cli shell  
+hive -S -e 'select country,count(*) from tab_ext' > /home/hadoop/hivetemp/e.txt	
+
+这种运行机制非常重要，在生产中就是用这种机制来将大量的HQL逻辑组织在一个批量执行的shell脚本程序中
+
+
+6、分区表
+分区表的意义在于可以针对一个分区来进行统计从而减小统计的数据集
+创建分区表要使用关键字  partitioned by (country string)
+导入数据到分区表的时候需要指定这份数据所属的分区     load data ..... partition(country='china')	
+hive就会在hdfs的表目录建一个分区子文件夹，名字为 country=china ,这一个分区的数据就放在该子文件夹下
+针对分区进行的查询和统计只要指定 where条件，将分区标识看成一个普通表字段就可以  where country='china'
+

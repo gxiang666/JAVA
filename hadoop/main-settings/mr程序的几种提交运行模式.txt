@@ -1,0 +1,31 @@
+﻿MR程序的几种提交运行模式
+
+
+本地模型运行
+
+1/在windows的eclipse里面直接运行main方法，就会将job提交给本地执行器localjobrunner执行
+      ----输入输出数据可以放在本地路径下（c:/wc/srcdata/）
+      ----输入输出数据也可以放在hdfs中(hdfs://weekend110:9000/wc/srcdata)
+      
+      
+2/在linux的eclipse里面直接运行main方法，但是不要添加yarn相关的配置，也会提交给localjobrunner执行
+      ----输入输出数据可以放在本地路径下（/home/hadoop/wc/srcdata/）
+      ----输入输出数据也可以放在hdfs中(hdfs://weekend110:9000/wc/srcdata)  
+      
+      
+      
+集群模式运行
+1/将工程打成jar包，上传到服务器，然后用hadoop命令提交  hadoop jar wc.jar cn.itcast.hadoop.mr.wordcount.WCRunner
+2/在linux的eclipse中直接运行main方法，也可以提交到集群中去运行，但是，必须采取以下措施：
+      ----在工程src目录下加入 mapred-site.xml  和  yarn-site.xml 
+      ----将工程打成jar包(wc.jar)，同时在main方法中添加一个conf的配置参数　conf.set("mapreduce.job.jar","wc.jar");           
+
+3/在windows的eclipse中直接运行main方法，也可以提交给集群中运行，但是因为平台不兼容，需要做很多的设置修改
+		----要在windows中存放一份hadoop的安装包（解压好的）
+		----要将其中的lib和bin目录替换成根据你的windows版本重新编译出的文件
+		----再要配置系统环境变量 HADOOP_HOME  和 PATH
+		----修改YarnRunner这个类的源码
+		      
+      
+      
+      

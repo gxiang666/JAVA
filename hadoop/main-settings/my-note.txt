@@ -119,7 +119,9 @@ QuorumPeerMain：zookeeper
 HMaster：负责管理hbase元数据
 HRegionServer：负责hbase存储数据
 MRAPPmaster:管理mapreduce
+SecondaryNameNode：负责合并edits和fsimages文件
 Yarnchild:
+RunJar：
 Kafka:
 nimbus:负责协调管理storm的节点
 supervisor:负责具体的运算

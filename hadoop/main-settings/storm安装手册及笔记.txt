@@ -10,7 +10,7 @@ storm.zookeeper.servers:
      - "hadoop106"
      - "hadoop107"
 
-#nimbus所在的主机名
+#nimbus所在的主机名,不用指定supervisor的地址
 nimbus.host: "hadoop105"
 
 可以不配：默认-6701，-6702，-6703，-6704

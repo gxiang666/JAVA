@@ -1,3 +1,5 @@
+本地复制，hdfs移动
+
 set hive.cli.print.header=true;
 
 CREATE TABLE page_view(viewTime INT, userid BIGINT,
@@ -22,7 +24,11 @@ create table tab_ip(id int,name string,ip string,country string)
     row format delimited
     fields terminated by ','
     stored as textfile;
+
+//追加
 load data local inpath '/home/hadoop/ip.txt' into table tab_ext;
+
+load data local inpath '/home/hadoop/ip.txt' overwrite into table tab_ext;
 
 //external
 CREATE EXTERNAL TABLE tab_ip_ext(id int, name string,
@@ -33,14 +39,14 @@ CREATE EXTERNAL TABLE tab_ip_ext(id int, name string,
  LOCATION '/external/hive';
  
 
-// CTAS  用于创建一些临时表存储中间结果
+// CREATE TABLE AS  用于创建一些临时表存储中间结果，有内容
 CREATE TABLE tab_ip_ctas
    AS
 SELECT id new_id, name new_name, ip new_ip,country new_country
 FROM tab_ip_ext
 SORT BY new_id;
 
-
+//不支持单个插入，支持批量插入
 //insert from select   用于向临时表中追加中间结果数据
 create table tab_ip_like like tab_ip;
 

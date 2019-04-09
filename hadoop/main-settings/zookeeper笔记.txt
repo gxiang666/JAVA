@@ -9,7 +9,7 @@
 	
 	3.2修改配置文件（zoo.cfg）
 		dataDir=/home/gaoxiang/app/zookeeper-3.4.5/data
-		
+	添加：	
 		server.1=hadoop105:2888:3888
 		server.2=hadoop106:2888:3888
 		server.3=hadoop107:2888:3888

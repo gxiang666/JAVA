@@ -8,25 +8,27 @@
 	----- cp hive-default.xml.template hive-site.xml
 	----- vim hive-site.xml   可以直接创建文件
 		<configuration>
-		<property>
-		<name>javax.jdo.option.ConnectionURL</name>
-		<value>jdbc:mysql://39.96.39.7:3306/hive?createDatabaseIfNotExist=true</value>
-		</property>
-		<property>
-		<name>javax.jdo.option.ConnectionDriverName</name>
-		<value>com.mysql.jdbc.Driver</value>
-		</property>
-		<property>
-		<name>javax.jdo.option.ConnectionUserName</name>
-		<value>root</value>
-		</property>
-		<property>
-		<name>javax.jdo.option.ConnectionPassword</name>
-		<value>root</value>
-		</property>
+			<property>
+				<name>javax.jdo.option.ConnectionURL</name>
+				<value>jdbc:mysql://39.96.39.7:3306/hive?createDatabaseIfNotExist=true</value>
+			</property>
+			<property>
+				<name>javax.jdo.option.ConnectionDriverName</name>
+				<value>com.mysql.jdbc.Driver</value>
+			</property>
+			<property>
+				<name>javax.jdo.option.ConnectionUserName</name>
+				<value>root</value>
+			</property>
+			<property>
+				<name>javax.jdo.option.ConnectionPassword</name>
+				<value>root</value>
+			</property>
 		</configuration>
 
 	3.1安装mysql
+		需要把mysql的jar放在lib下
+		
 		查询以前安装的mysql相关包
 		rpm -qa | grep mysql
 		暴力删除这个包

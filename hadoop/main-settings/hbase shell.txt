@@ -1,6 +1,18 @@
 进入hbase命令行
 ./hbase shell
 
+查看帮助命令
+help
+
+查看表结构
+describe ‘student’
+
+清空表数据
+truncate 'student'
+
+将 info 列族中的数据存放 3 个版本：
+alter 'student',{NAME=>'info',VERSIONS=>3}
+
 显示hbase中的表
 list
 

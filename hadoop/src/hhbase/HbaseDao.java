@@ -65,7 +65,7 @@ public class HbaseDao {
 		//版本
 		base_info.setMaxVersions(5);
 		
-		//添加行键
+		//添加
 		desc.addFamily(base_info);
 		desc.addFamily(extra_info);
 		

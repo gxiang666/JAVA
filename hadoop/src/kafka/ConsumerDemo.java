@@ -20,12 +20,15 @@ public class ConsumerDemo {
 		
 		Properties props = new Properties();
 		props.put("zookeeper.connect", "weekend01:2181,weekend02:2181,weekend03:2181");
+		//group
 		props.put("group.id", "1111");
+		//偏移量
 		props.put("auto.offset.reset", "smallest");
 
 		ConsumerConfig config = new ConsumerConfig(props);
 		ConsumerConnector consumer =Consumer.createJavaConsumerConnector(config);
 		Map<String, Integer> topicCountMap = new HashMap<String, Integer>();
+		// topic名称，线程数
 		topicCountMap.put(topic, 1);
 		topicCountMap.put("mygirls", 1);
 		topicCountMap.put("myboys", 1);

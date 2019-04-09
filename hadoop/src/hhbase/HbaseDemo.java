@@ -93,6 +93,8 @@ public class HbaseDemo {
 	@Test
 	public void testScan() throws Exception{
 		HTable table = new HTable(conf, "person_info".getBytes());
+		
+		//开始行键，结束行键
 		Scan scan = new Scan(Bytes.toBytes("person_rk_bj_zhang_000001"), Bytes.toBytes("person_rk_bj_zhang_000002"));
 		
 		//前缀过滤器----针对行键

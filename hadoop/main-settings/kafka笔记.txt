@@ -34,16 +34,26 @@
 3、将zookeeper集群启动
 
 4、在每一台节点上启动broker
-bin/kafka-server-start.sh config/server.properties
+/home/gaoxiang/app/kafka_2.10-0.8.1.1/bin/kafka-server-start.sh config/server.properties
 
 5、在kafka集群中创建一个topic
-bin/kafka-topics.sh --create --zookeeper hadoop105:2181 --replication-factor 3 --partitions 1 --topic order
+/home/gaoxiang/app/kafka_2.10-0.8.1.1/bin/kafka-topics.sh --create --zookeeper hadoop105:2181 --replication-factor 3 --partitions 1 --topic order
 
 6、用一个producer向某一个topic中写入消息
-bin/kafka-console-producer.sh --broker-list hadoop105:9092 --topic order
+/home/gaoxiang/app/kafka_2.10-0.8.1.1/bin/kafka-console-producer.sh --broker-list hadoop105:9092 --topic order
 
 7、用一个comsumer从某一个topic中读取信息
-bin/kafka-console-consumer.sh --zookeeper hadoop105:2181 --from-beginning --topic order
+/home/gaoxiang/app/kafka_2.10-0.8.1.1/bin/kafka-console-consumer.sh --zookeeper hadoop105:2181 --from-beginning --topic order
+/home/gaoxiang/app/kafka_2.10-0.8.1.1/bin/kafka-console-consumer.sh --zookeeper hadoop105:2181 --topic order
 
 8、查看一个topic的分区及副本状态信息
-bin/kafka-topics.sh --describe --zookeeper hadoop105:2181 --topic order
+/home/gaoxiang/app/kafka_2.10-0.8.1.1/bin/kafka-topics.sh --describe --zookeeper hadoop105:2181 --topic order
+
+
+9、后台开启，  1 > /dev/null：标准输出重定向到null文件中，2 > &1：错误输出也重定向到跟1相同的地方
+/home/gaoxiang/app/kafka_2.10-0.8.1.1/bin/kafka-server-start.sh config/server.properties 1 > /dev/null 2 > &1 &
+
+10、
+/home/gaoxiang/app/kafka_2.10-0.8.1.1/bin/kafka-topics.sh --zookeeper hadoop105:2181 --list
+/home/gaoxiang/app/kafka_2.10-0.8.1.1/bin/kafka-topics.sh --zookeeper hadoop105:2181 --delete --topic order
+

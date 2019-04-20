@@ -4,7 +4,7 @@
 
 3.配置hbase集群，要修改3个文件（首先zk集群已经安装好了）
 	注意：要把hadoop的hdfs-site.xml和core-site.xml 放到hbase/conf下
-	
+	在hadoop103上
 	3.1修改hbase-env.sh
 	export JAVA_HOME=/usr/java/jdk1.7.0_55
 	//告诉hbase使用外部的zk
@@ -14,18 +14,18 @@
 	<configuration>
 		<!-- 指定hbase在HDFS上存储的路径 -->
         <property>
-                <name>hbase.rootdir</name>
-                <value>hdfs://ns1/hbase</value>
+			<name>hbase.rootdir</name>
+			<value>hdfs://ns1/hbase</value>
         </property>
 		<!-- 指定hbase是分布式的 -->
         <property>
-                <name>hbase.cluster.distributed</name>
-                <value>true</value>
+			<name>hbase.cluster.distributed</name>
+			<value>true</value>
         </property>
 		<!-- 指定zk的地址，多个用“,”分割 -->
         <property>
-                <name>hbase.zookeeper.quorum</name>
-                <value>hadoop105:2181,hadoop106:2181,hadoop107:2181</value>
+			<name>hbase.zookeeper.quorum</name>
+			<value>hadoop105:2181,hadoop106:2181,hadoop107:2181</value>
         </property>
 	</configuration>
 	

@@ -95,14 +95,14 @@
 		<property>
 			<name>hadoop.tmp.dir</name>
 			<value>/home/home/gaoxiang/app/hadoop-2.4.1/tmp</value>
-   		 </property>
+   		</property>
 		
-	第三个：hdfs-site.xml   hdfs-default.xml  (3)
+	第三个：hdfs-site.xml   hdfs-default.xml
 		<!-- 指定HDFS副本的数量 -->
 		<property>
 			<name>dfs.replication</name>
 			<value>1</value>
-    		</property>
+    	</property>
 		
 	第四个：mapred-site.xml (mv mapred-site.xml.template mapred-site.xml)
 		mv mapred-site.xml.template mapred-site.xml

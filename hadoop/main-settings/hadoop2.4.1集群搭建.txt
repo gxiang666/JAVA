@@ -100,19 +100,19 @@ hadoop2.0已经发布了稳定版本了，增加了很多特性，比如HDFS HA、YARN等。最新的hadoop
 				<configuration>
 					<!-- 指定hdfs的nameservice为ns1,两个namenode组成一个nameservice -->
 					<property>
-							<name>fs.defaultFS</name>
-							<value>hdfs://ns1/</value>
+						<name>fs.defaultFS</name>
+						<value>hdfs://ns1/</value>
 					</property>
 					<!-- 指定hadoop临时目录 -->
 					<property>
-							<name>hadoop.tmp.dir</name>
-							<value>/home/gaoxiang/app/hadoop-2.7.2/temp</value>
+						<name>hadoop.tmp.dir</name>
+						<value>/home/gaoxiang/app/hadoop-2.7.2/temp</value>
 					</property>
 
 					<!-- 指定zookeeper地址 -->
 					<property>
-							<name>ha.zookeeper.quorum</name>
-							<value>hadoop105:2181,hadoop106:2181,hadoop107:2181</value>
+						<name>ha.zookeeper.quorum</name>
+						<value>hadoop105:2181,hadoop106:2181,hadoop107:2181</value>
 					</property>
 				</configuration>
 

@@ -28,6 +28,7 @@ create table tab_ip(id int,name string,ip string,country string)
 //×·¼Ó
 load data local inpath '/home/hadoop/ip.txt' into table tab_ext;
 
+//¸²¸Ç
 load data local inpath '/home/hadoop/ip.txt' overwrite into table tab_ext;
 
 //external

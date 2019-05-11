@@ -1,0 +1,79 @@
+Spring的事务：
+	抽象层：PlatformTransactionManager
+	实现：DataSourceTransactionManager  JtaTransactionManager  HibernateTransactionManager
+	默认使用的事务管理器是DataSourceTransactionManager
+	<!-- ===============事务控制的配置 ================-->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<!--控制住数据源  -->
+		<property name="dataSource" ref="pooledDataSource"></property>
+	</bean>
+	<!--开启基于注解的事务，使用xml配置形式的事务（必要主要的都是使用配置式）  -->
+	<aop:config>
+		<!-- 切入点表达式 -->
+		<!-- 
+			execution(modifiers-pattern? ret-type-pattern declaring-type-pattern? name-pattern(param-pattern)throws-pattern?)
+			returning type pattern,name pattern, and parameters pattern是必须的.
+			ret-type-pattern:可以为*表示任何返回值,全路径的类名等.
+			name-pattern:指定方法名,*代表所以,set*,代表以set开头的所有方法.
+			parameters pattern:指定方法参数(声明的类型),(..)代表所有参数,(*)代表一个参数,(*,String)代表第一个参数为任何值,第二个为String类型.
+			execution(返回值类型 包.类.方法(参数类型))
+			定义在service包和所有子包里的任意类的任意方法的执行：
+			execution(* com.xyz.service..*.*(..))
+		-->
+		<aop:pointcut expression="execution(* com.atguigu.crud.service..*(..))" id="txPoint"/>
+		<!-- 配置事务增强 -->
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPoint"/>
+	</aop:config>
+	
+	<!--配置事务增强，事务如何切入  -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<!-- 所有方法都是事务方法 -->
+			<tx:method name="*"/>
+			<!--以get开始的所有方法  -->
+			<tx:method name="get*" read-only="true"/>
+		</tx:attributes>
+	</tx:advice>
+
+Spring-Aop:
+	执行顺序： 前置通知 -> 方法执行 -> 后置通知 -> 返回通知 | 异常通知
+	前置通知:方法执行前执行
+	后置通知:不管方法是否出现异常都会在方法结束后执行
+	返回通知:只有在方法正常结束才执行，可以访问返回值
+	异常通知:只有出现异常时执行，可以访问异常
+	环绕通知:
+
+
+Mybatis：	
+	标签：
+		crud: insert  update  delete  select 
+		Dynamic SQL:  where  if  choose (when, otherwise)  trim (where, set)  foreach
+		others:       sql  resultMap  association  collection  include
+		where:只会去掉前面第一个and或or
+		trim:可以去掉前后的and或or，并加上前后坠
+		set:在使用update标签，自动去掉后面的逗号
+
+	#{} 和 ${}的区别和用法：
+		select * from tbl_employee where id=${id} and last_name=#{lastName}
+		Preparing: select * from tbl_employee where id=2 and last_name=?		
+		相同：都能获取参数的值
+		${}:取出的值直接拼装在sql语句中；会有安全问题；拼接sql
+		#{}:是以预编译的形式,会是一个占位符(?),将参数设置到sql语句中；PreparedStatement；防止sql注入
+		大多情况下，我们去参数的值都应该去使用#{},
+		#{}只能取出参数位置的值，产数位置都是条件，默认 = ，如：last_name=#{last_name}
+		${}可以在不是参数位置使用
+		原生jdbc不支持占位符(预编译)的地方我们就可以使用${}进行取值
+			比如分表、排序。。。；按照年份分表拆分,from后不能使用#{}
+			select * from ${year}_salary where xxx;
+			select * from tbl_employee order by ${f_name} ${order}
+		#{}:更丰富的用法：
+		规定参数的一些规则：
+		javaType、 jdbcType、 mode（存储过程）、 numericScale、
+		resultMap、 typeHandler、 jdbcTypeName、 expression（未来准备支持的功能）；
+		jdbcType通常需要在某种特定的条件下被设置：
+			在我们数据为null的时候，有些数据库可能不能识别mybatis对null的默认处理。比如Oracle（报错）；
+			JdbcType OTHER：无效的类型；因为mybatis对所有的null都映射的是原生Jdbc的OTHER类型，oracle不能正确处理;
+			由于全局配置中：jdbcTypeForNull=OTHER；oracle不支持；两种办法
+			1、#{email,jdbcType=NULL};   当email为null使用null进行处理
+			2、jdbcTypeForNull=NULL
+				<setting name="jdbcTypeForNull" value="NULL"/>

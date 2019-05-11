@@ -1,0 +1,2 @@
+IDEA出现Cannot download source
+	然后 进入到项目根路径后  使用mvn dependency:resolve -Dclassifier=sources指令下载就不会出现这种情况package com.yuw.annotationdemo;

@@ -1,0 +1,14 @@
+数据库默认不物理删除，通常设置一个字段deleted,0:表示存在，1:表示应已删除
+删除的时候，使用update account_user set deleted = 1 where id in( #join(ids)#)
+
+
+
+
+登录提示：
+	<div class="login-btn">
+		<button lay-submit="" lay-filter="demo1">立即登录</button>
+		<p style="color: red;font-size: 14px;margin-top: 1%;margin-left: -50%;">${loginErrorInfo}</p>
+	</div>
+
+后台验证：
+	 public JsonResult add(@Validated(ValidateConfig.ADD.class) AccountUser accountUser){}

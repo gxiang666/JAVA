@@ -1,7 +1,30 @@
-Spring的事务：
-	抽象层：PlatformTransactionManager
-	实现：DataSourceTransactionManager  JtaTransactionManager  HibernateTransactionManager
-	默认使用的事务管理器是DataSourceTransactionManager
+Spring事务：
+	事务管理器：
+		抽象层：PlatformTransactionManager
+		实现：
+			DataSourceTransactionManager(JDBC)  
+			JtaTransactionManager(JTA)  
+			HibernateTransactionManager(Hibernate)
+			JpaTransactionManager(Jpa)
+		默认使用的事务管理器是DataSourceTransactionManager
+	Spring 支持的事务传播行为： 7种
+		PROPAGATION_REQUIRED：默认的，会在现有的事务内运行，如果一个事务已经开启，使用当前事务。如果没有事务开启,则开启自己的事务
+		PROPAGATION_REQUIRES_NEW：:总是开启一个新的事务。如果一个事务已经开启，挂起当前事务自己重新开启新的事务。
+		PROPAGATION_SUPPORTS:如果一个事务已经开启，使用当前事务。如果没有事务开启，自己也不会开启事务。
+		PROPAGATION_MANDATORY：如果一个事务已经开启，使用当前事务。如果没有事务开启，则抛出异常。
+		PROPAGATION_NOT_SUPPORTED：总是非事务地执行，并挂起任何存在的事务,该参数将不会使用任何一个事务，可以用做查询语句,查询结束后重新开启之前的事务。
+		PROPAGATION_NEVER:总是非事务地执行，如果有事务存在，则抛出异常。
+		PROPAGATION_NESTED:如果一个活动的事务存在，则运行在一个嵌套的事务中，如果没有活动事务，则按第一条TransactionDefinition.PROPAGATION_REQUIRED属性执行。
+
+	事务的隔离级别：5种
+		ISOLATION_DEFAULT:默认,这是一个PlatfromTransactionManager默认的隔离级别，使用数据库默认的事务隔离级别。
+		ISOLATION_READ_UNCOMMITED:读未提交,这是事务最低的隔离级别，它允许另外一个事务可以看到这个事务未提交的数据。
+		ISOLATION_READ_COMMITED:读已提交,保证一个事务修改的数据提交后才能被另外一个事务读取。另外一个事务不能读取该事务未提交的数据。
+		ISOLATION_PEPETABLE_READ:可重复读这种事务隔离级别可以防止脏读，不可重复读。但是可能出现幻想读。它除了保证一个事务不能读取另外一个事务未提交的数据外，还保证了避免下面的情况产生（不可重复读）。
+		ISOLATION_SERIALIZABLE:串行化，这是花费最高代价但是最可靠的事务隔离级别。事务被处理为顺序执行。除了防止脏读，不重复读外，还避免了幻读。
+
+
+	
 	<!-- ===============事务控制的配置 ================-->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<!--控制住数据源  -->
@@ -44,14 +67,17 @@ Spring-Aop:
 	环绕通知:
 
 
-Mybatis：	
+Mybatis(dynamic)：	
 	标签：
 		crud: insert  update  delete  select 
-		Dynamic SQL:  where  if  choose (when, otherwise)  trim (where, set)  foreach
+		Dynamic SQL:  where  if  choose (when, otherwise)  trim (where, set)  foreach	dynamic
 		others:       sql  resultMap  association  collection  include
 		where:只会去掉前面第一个and或or
 		trim:可以去掉前后的and或or，并加上前后坠
 		set:在使用update标签，自动去掉后面的逗号
+		foreach:循环遍历集合
+		dynamic:
+
 
 	#{} 和 ${}的区别和用法：
 		select * from tbl_employee where id=${id} and last_name=#{lastName}
@@ -77,3 +103,6 @@ Mybatis：
 			1、#{email,jdbcType=NULL};   当email为null使用null进行处理
 			2、jdbcTypeForNull=NULL
 				<setting name="jdbcTypeForNull" value="NULL"/>
+
+
+SQL优化：

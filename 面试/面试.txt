@@ -106,3 +106,11 @@ Mybatis(dynamic)：
 
 
 SQL优化：
+	书写：SELECT FROM JOIN ON WHERE GROUP BY HAVING ORDER BY LIMIT
+	执行：FROM ON JOIN WHERE GROUP BY HAVING SELECT ORDER BY LIMIT
+	from后表的读取顺序，where后的顺序，join优化
+	join优化：
+		小的结果集驱动大的结果集	
+		select * from class join student on class.id = student.classid
+		LEFT JOIN：右边是我们的关键点,一定需要建立索引
+		RIGHT JOIN:左边是我们的关键点,一定需要建立索引
